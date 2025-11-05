@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "date": "2025-11-05T21:28:39.079Z",
+  "notes": "Version 1.0.0 de braiq",
+  "platforms": {
+    "darwin-x86_64": {
+      "url": "https://github.com/OKTRA/apps/releases/download/braiq-v1.0.0/BRAIQ_1.0.0_aarch64.dmg",
+      "signature": "https://github.com/OKTRA/apps/releases/download/braiq-v1.0.0/BRAIQ_1.0.0_aarch64.dmg.sig",
+      "size": 4454529
+    },
+    "darwin-aarch64": {
+      "url": "https://github.com/OKTRA/apps/releases/download/braiq-v1.0.0/BRAIQ_1.0.0_aarch64.dmg",
+      "signature": "https://github.com/OKTRA/apps/releases/download/braiq-v1.0.0/BRAIQ_1.0.0_aarch64.dmg.sig",
+      "size": 4454529
+    }
+  }
+}
