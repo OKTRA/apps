@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 name: Release BRAIQ macOS
 
 on:
@@ -153,4 +150,3 @@ jobs:
             - **macOS Intel** : `BRAIQ-macos-x64.dmg`
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
->>>>>>> fc00ab3 (Add BRAIQ release workflow from private repo)
