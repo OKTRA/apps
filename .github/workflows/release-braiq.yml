@@ -55,13 +55,24 @@ jobs:
         working-directory: ./BRAIQ
         run: npm run build
 
+      - name: Check if signing is configured
+        id: check_signing
+        run: |
+          if [ -n "$APPLE_SIGNING_IDENTITY" ]; then
+            echo "signing_configured=true" >> $GITHUB_OUTPUT
+          else
+            echo "signing_configured=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+
       - name: Build Tauri app (unsigned)
         working-directory: ./BRAIQ
-        if: ${{ secrets.APPLE_SIGNING_IDENTITY == '' }}
+        if: steps.check_signing.outputs.signing_configured == 'false'
         run: npm run tauri build -- --target ${{ matrix.target }}
 
       - name: Import Code Signing Certificate
-        if: ${{ secrets.APPLE_CERTIFICATE_BASE64 != '' && secrets.APPLE_CERTIFICATE_PASSWORD != '' }}
+        if: steps.check_signing.outputs.signing_configured == 'true'
         uses: apple-actions/import-codesign-certs@v2
         with:
           p12-file-base64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
@@ -69,16 +80,29 @@ jobs:
 
       - name: Build Tauri app (signed)
         working-directory: ./BRAIQ
-        if: ${{ secrets.APPLE_SIGNING_IDENTITY != '' }}
+        if: steps.check_signing.outputs.signing_configured == 'true'
         run: |
           jq '.tauri.bundle.macOS.signingIdentity = "${{ secrets.APPLE_SIGNING_IDENTITY }}"' \
             src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp
           mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
           npm run tauri build -- --target ${{ matrix.target }}
 
+      - name: Check if notarization is configured
+        id: check_notarization
+        run: |
+          if [ -n "$APPLE_ID" ] && [ -n "$APPLE_ID_PASSWORD" ] && [ -n "$APPLE_TEAM_ID" ]; then
+            echo "notarization_configured=true" >> $GITHUB_OUTPUT
+          else
+            echo "notarization_configured=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+
       - name: Notarize app
         working-directory: ./BRAIQ
-        if: ${{ secrets.APPLE_ID != '' && secrets.APPLE_ID_PASSWORD != '' && secrets.APPLE_TEAM_ID != '' }}
+        if: steps.check_notarization.outputs.notarization_configured == 'true'
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
@@ -133,7 +157,7 @@ jobs:
             artifacts/**/*.dmg
             artifacts/**/*.zip
           body: |
-            ## �� BRAIQ Release
+            ## 📦 BRAIQ Release
             
             Téléprompteur intelligent pour macOS
             
