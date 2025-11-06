@@ -69,7 +69,7 @@ jobs:
       - name: Build Tauri app (unsigned)
         working-directory: ./BRAIQ
         if: steps.check_signing.outputs.signing_configured == 'false'
-        run: npx tauri build --target ${{ matrix.target }}
+        run: npx @tauri-apps/cli build --target ${{ matrix.target }}
 
       - name: Import Code Signing Certificate
         if: steps.check_signing.outputs.signing_configured == 'true'
@@ -85,7 +85,7 @@ jobs:
           jq '.tauri.bundle.macOS.signingIdentity = "${{ secrets.APPLE_SIGNING_IDENTITY }}"' \
             src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp
           mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
-          npx tauri build --target ${{ matrix.target }}
+          npx @tauri-apps/cli build --target ${{ matrix.target }}
 
       - name: Check if notarization is configured
         id: check_notarization
