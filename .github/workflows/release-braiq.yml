@@ -1,1 +1,156 @@
+<<<<<<< HEAD
 
+=======
+name: Release BRAIQ macOS
+
+on:
+  push:
+    tags:
+      - 'braiq-v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v1.0.0)'
+        required: true
+      braiq_ref:
+        description: 'Branch ou tag du repo BRAIQ privé (ex: main, v1.0.0)'
+        required: false
+        default: 'main'
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    
+    strategy:
+      matrix:
+        include:
+          - target: aarch64-apple-darwin
+            arch: arm64
+          - target: x86_64-apple-darwin
+            arch: x64
+
+    steps:
+      - name: Checkout BRAIQ private repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.BRAIQ_REPO_OWNER }}/${{ secrets.BRAIQ_REPO_NAME }}
+          ref: ${{ github.event.inputs.braiq_ref || 'main' }}
+          token: ${{ secrets.BRAIQ_REPO_TOKEN }}
+          path: BRAIQ
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: BRAIQ/package-lock.json
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install dependencies
+        working-directory: ./BRAIQ
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: ./BRAIQ
+        run: npm run build
+
+      - name: Build Tauri app (unsigned)
+        working-directory: ./BRAIQ
+        if: ${{ !secrets.APPLE_SIGNING_IDENTITY }}
+        run: npm run tauri build -- --target ${{ matrix.target }}
+
+      - name: Import Code Signing Certificate
+        if: ${{ secrets.APPLE_CERTIFICATE_BASE64 && secrets.APPLE_CERTIFICATE_PASSWORD }}
+        uses: apple-actions/import-codesign-certs@v2
+        with:
+          p12-file-base64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+
+      - name: Build Tauri app (signed)
+        working-directory: ./BRAIQ
+        if: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+        run: |
+          jq '.tauri.bundle.macOS.signingIdentity = "${{ secrets.APPLE_SIGNING_IDENTITY }}"' \
+            src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp
+          mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
+          npm run tauri build -- --target ${{ matrix.target }}
+
+      - name: Notarize app
+        working-directory: ./BRAIQ
+        if: ${{ secrets.APPLE_ID && secrets.APPLE_ID_PASSWORD && secrets.APPLE_TEAM_ID }}
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          chmod +x scripts/notarize-mac-app.sh
+          ./scripts/notarize-mac-app.sh src-tauri/target/${{ matrix.target }}/release/bundle/macos/BRAIQ.app
+
+      - name: Prepare artifacts
+        working-directory: ./BRAIQ
+        run: |
+          mkdir -p artifacts
+          if [ -d "src-tauri/target/${{ matrix.target }}/release/bundle/macos/BRAIQ.app" ]; then
+            ditto -c -k --keepParent \
+              "src-tauri/target/${{ matrix.target }}/release/bundle/macos/BRAIQ.app" \
+              "artifacts/BRAIQ-macos-${{ matrix.arch }}.app.zip"
+          fi
+          if ls src-tauri/target/${{ matrix.target }}/release/bundle/dmg/BRAIQ_*.dmg 1> /dev/null 2>&1; then
+            cp src-tauri/target/${{ matrix.target }}/release/bundle/dmg/BRAIQ_*.dmg \
+              "artifacts/BRAIQ-macos-${{ matrix.arch }}.dmg"
+          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: BRAIQ-macos-${{ matrix.arch }}
+          path: BRAIQ/artifacts/*
+          if-no-files-found: error
+
+  create-release:
+    needs: build-macos
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+      - name: Checkout oktra/apps repository
+        uses: actions/checkout@v4
+        with:
+          path: oktra-apps
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create Release in oktra/apps
+        uses: softprops/action-gh-release@v1
+        with:
+          repository: oktra/apps
+          draft: true
+          files: |
+            artifacts/**/*.dmg
+            artifacts/**/*.zip
+          body: |
+            ## 📦 BRAIQ Release
+            
+            Téléprompteur intelligent pour macOS
+            
+            ### Installation macOS
+            
+            **⚠️ Important** : Si vous voyez "BRAIQ est endommagé", exécutez :
+            ```bash
+            xattr -d com.apple.quarantine /Applications/BRAIQ.app
+            ```
+            
+            ### Téléchargements
+            
+            - **macOS Apple Silicon** : `BRAIQ-macos-arm64.dmg`
+            - **macOS Intel** : `BRAIQ-macos-x64.dmg`
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+>>>>>>> fc00ab3 (Add BRAIQ release workflow from private repo)
