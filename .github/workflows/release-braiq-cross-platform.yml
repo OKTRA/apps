@@ -63,9 +63,13 @@ jobs:
         run: |
           # Build seulement l'app (pas le DMG pour éviter les erreurs)
           if [ "${{ matrix.target }}" = "aarch64-apple-darwin" ]; then
-            npm run tauri:build:mac
+            npm run build
+            jq '.tauri.bundle.targets = ["app"]' src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp && mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
+            npx tauri build --target aarch64-apple-darwin
           else
-            npm run tauri:build:mac:intel
+            npm run build
+            jq '.tauri.bundle.targets = ["app"]' src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp && mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
+            npx tauri build --target x86_64-apple-darwin
           fi
 
       # Créer le DMG automatiquement après le build
@@ -196,6 +200,9 @@ jobs:
           # Build using the existing npm script with explicit target
           echo "Building frontend..."
           npm run build
+          
+          echo "Installing Tauri CLI explicitly..."
+          npm install @tauri-apps/cli@latest
           
           echo "Building Tauri app for Windows..."
           npx tauri build --target x86_64-pc-windows-msvc --bundles msi --verbose
