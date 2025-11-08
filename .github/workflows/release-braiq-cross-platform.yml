@@ -62,11 +62,11 @@ jobs:
         working-directory: ./BRAIQ
         run: |
           # Build seulement l'app (pas le DMG pour éviter les erreurs)
-          jq '.tauri.bundle.targets = ["app"]' \
-            src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp
-          mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
-
-          npm run tauri -- build --target ${{ matrix.target }}
+          if [ "${{ matrix.target }}" = "aarch64-apple-darwin" ]; then
+            npm run tauri:build:mac
+          else
+            npm run tauri:build:mac:intel
+          fi
 
       # Créer le DMG automatiquement après le build
       - name: Create DMG automatically
@@ -160,7 +160,7 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: x86_64-pc-windows-msvc
+          targets: x86_64-pc-windows-gnu
 
       # Setup MSVC build tools for Windows
       - name: Setup MSVC Build Tools
@@ -177,7 +177,9 @@ jobs:
       # Build Windows MSI
       - name: Build Tauri app (Windows)
         working-directory: ./BRAIQ
-        run: npm run tauri -- build --target x86_64-pc-windows-msvc
+        run: |
+          # Build using the existing npm script
+          npm run tauri:build:win
 
       - name: Prepare Windows artifacts
         working-directory: ./BRAIQ
@@ -185,8 +187,8 @@ jobs:
           mkdir -p artifacts
 
           # Copy MSI installer
-          if (Test-Path "src-tauri\target\x86_64-pc-windows-msvc\release\bundle\msi\BRAIQ_1.0.0_x64.msi") {
-            Copy-Item "src-tauri\target\x86_64-pc-windows-msvc\release\bundle\msi\BRAIQ_1.0.0_x64.msi" "artifacts\BRAIQ-windows-x64.msi"
+          if (Test-Path "src-tauri\target\x86_64-pc-windows-gnu\release\bundle\msi\BRAIQ_1.0.0_x64.msi") {
+            Copy-Item "src-tauri\target\x86_64-pc-windows-gnu\release\bundle\msi\BRAIQ_1.0.0_x64.msi" "artifacts\BRAIQ-windows-x64.msi"
             Write-Host "✅ MSI installer copied to artifacts"
           } else {
             Write-Error "❌ Error: MSI installer not found"
