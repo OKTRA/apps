@@ -1,0 +1,215 @@
+# ========================================
+# Workflow GitHub Actions pour BRAIQ
+# À copier dans : oktra/apps/.github/workflows/release-braiq.yml
+# ========================================
+#
+# Ce fichier doit être placé dans le repository oktra/apps
+# Chemin : oktra/apps/.github/workflows/release-braiq.yml
+#
+# Structure attendue dans oktra/apps :
+# oktra/apps/
+# ├── .github/workflows/release-braiq.yml  ← Ce fichier
+# └── BRAIQ/                                ← Projet BRAIQ complet
+#
+# ========================================
+
+name: Release BRAIQ macOS
+
+on:
+  push:
+    tags:
+      - 'braiq-v*'  # ⚠️ Tags spécifiques à BRAIQ (ex: braiq-v1.0.0)
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v1.0.0)'
+        required: true
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    
+    strategy:
+      matrix:
+        include:
+          - target: aarch64-apple-darwin
+            arch: arm64
+          - target: x86_64-apple-darwin
+            arch: x64
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: BRAIQ/package-lock.json  # ⚠️ Chemin vers BRAIQ
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install dependencies
+        working-directory: ./BRAIQ  # ⚠️ Working directory = BRAIQ
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: ./BRAIQ  # ⚠️ Working directory = BRAIQ
+        run: npm run build
+
+      # Option 1: Build sans signature (les utilisateurs devront utiliser xattr -d)
+      - name: Build Tauri app (unsigned)
+        working-directory: ./BRAIQ  # ⚠️ Working directory = BRAIQ
+        if: ${{ !secrets.APPLE_SIGNING_IDENTITY }}
+        run: npx tauri build --target ${{ matrix.target }}
+
+      # Option 2: Build avec signature (nécessite les secrets configurés dans oktra/apps)
+      - name: Import Code Signing Certificate
+        if: ${{ secrets.APPLE_CERTIFICATE_BASE64 && secrets.APPLE_CERTIFICATE_PASSWORD }}
+        uses: apple-actions/import-codesign-certs@v2
+        with:
+          p12-file-base64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+
+      - name: Build Tauri app (signed)
+        working-directory: ./BRAIQ  # ⚠️ Working directory = BRAIQ
+        if: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+        run: |
+          # Modifier temporairement tauri.conf.json pour ajouter signingIdentity
+          jq '.tauri.bundle.macOS.signingIdentity = "${{ secrets.APPLE_SIGNING_IDENTITY }}"' \
+            src-tauri/tauri.conf.json > src-tauri/tauri.conf.json.tmp && mv src-tauri/tauri.conf.json.tmp src-tauri/tauri.conf.json
+          
+          npx tauri build --target ${{ matrix.target }}
+
+      # Option 3: Notarisation (optionnel, nécessite APPLE_ID configuré dans oktra/apps)
+      - name: Notarize app
+        working-directory: ./BRAIQ  # ⚠️ Working directory = BRAIQ
+        if: ${{ secrets.APPLE_ID && secrets.APPLE_ID_PASSWORD && secrets.APPLE_TEAM_ID }}
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          chmod +x scripts/notarize-mac-app.sh
+          ./scripts/notarize-mac-app.sh src-tauri/target/${{ matrix.target }}/release/bundle/macos/BRAIQ.app
+
+      - name: Prepare artifacts
+        working-directory: ./BRAIQ  # ⚠️ Working directory = BRAIQ
+        run: |
+          mkdir -p artifacts
+          
+          # Copier l'app
+          if [ -d "src-tauri/target/${{ matrix.target }}/release/bundle/macos/BRAIQ.app" ]; then
+            ditto -c -k --keepParent \
+              "src-tauri/target/${{ matrix.target }}/release/bundle/macos/BRAIQ.app" \
+              "artifacts/BRAIQ-macos-${{ matrix.arch }}.app.zip"
+          fi
+          
+          # Copier le DMG s'il existe
+          if ls src-tauri/target/${{ matrix.target }}/release/bundle/dmg/BRAIQ_*.dmg 1> /dev/null 2>&1; then
+            cp src-tauri/target/${{ matrix.target }}/release/bundle/dmg/BRAIQ_*.dmg \
+              "artifacts/BRAIQ-macos-${{ matrix.arch }}.dmg"
+          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: BRAIQ-macos-${{ matrix.arch }}
+          path: BRAIQ/artifacts/*  # ⚠️ Chemin vers artifacts dans BRAIQ
+          if-no-files-found: error
+
+  create-release:
+    needs: build-macos
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Display structure of downloaded files
+        run: ls -R artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: |
+            artifacts/**/*.dmg
+            artifacts/**/*.zip
+          body: |
+            ## 📦 BRAIQ Release
+            
+            Téléprompteur intelligent pour macOS
+            
+            ### Installation
+            
+            #### macOS
+            
+            **⚠️ Important** : Si vous voyez le message "BRAIQ est endommagé", c'est normal !
+            
+            Exécutez simplement cette commande dans le Terminal :
+            ```bash
+            xattr -d com.apple.quarantine /Applications/BRAIQ.app
+            ```
+            
+            📖 [Guide complet d'installation macOS](https://github.com/${{ github.repository }}/blob/main/BRAIQ/INSTALLATION_MACOS.md)
+            
+            ### Téléchargements
+            
+            - **macOS Apple Silicon (M1/M2/M3/M4)** : `BRAIQ-macos-arm64.dmg`
+            - **macOS Intel** : `BRAIQ-macos-x64.dmg`
+            
+            ### Notes de version
+            
+            _Ajoutez vos notes de version ici_
+            
+            ---
+            
+            🔗 Repository : https://github.com/${{ github.repository }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# ========================================
+# Configuration des Secrets dans oktra/apps
+# ========================================
+#
+# Allez sur : https://github.com/oktra/apps/settings/secrets/actions
+#
+# Secrets pour la signature (Option 2) :
+# - APPLE_CERTIFICATE_BASE64
+# - APPLE_CERTIFICATE_PASSWORD
+# - APPLE_SIGNING_IDENTITY
+#
+# Secrets pour la notarisation (Option 3) :
+# - APPLE_ID
+# - APPLE_ID_PASSWORD
+# - APPLE_TEAM_ID
+#
+# ========================================
+# Utilisation
+# ========================================
+#
+# Pour créer une release :
+#
+# cd oktra/apps
+# git tag braiq-v1.0.0
+# git push origin braiq-v1.0.0
+#
+# Le workflow va automatiquement :
+# 1. Builder pour arm64 et x64
+# 2. Signer (si secrets configurés)
+# 3. Notariser (si tous les secrets configurés)
+# 4. Créer une release draft sur https://github.com/oktra/apps/releases
+#
+# ========================================
+
