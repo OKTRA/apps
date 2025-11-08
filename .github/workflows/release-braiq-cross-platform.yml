@@ -160,7 +160,7 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: x86_64-pc-windows-gnu
+          targets: x86_64-pc-windows-msvc
 
       # Setup MSVC build tools for Windows
       - name: Setup MSVC Build Tools
@@ -170,6 +170,14 @@ jobs:
         working-directory: ./BRAIQ
         run: npm ci
 
+      # Ensure Tauri CLI is available and working
+      - name: Verify Tauri CLI installation
+        working-directory: ./BRAIQ
+        run: |
+          echo "Checking Tauri CLI installation..."
+          npx @tauri-apps/cli@latest --version
+          echo "Tauri CLI verified successfully"
+
       - name: Build frontend
         working-directory: ./BRAIQ
         run: npm run build
@@ -178,8 +186,19 @@ jobs:
       - name: Build Tauri app (Windows)
         working-directory: ./BRAIQ
         run: |
-          # Build using the existing npm script
-          npm run tauri:build:win
+          # Debug information
+          echo "Current directory: $(pwd)"
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          echo "Available npm scripts:"
+          npm run
+          
+          # Build using the existing npm script with explicit target
+          echo "Building frontend..."
+          npm run build
+          
+          echo "Building Tauri app for Windows..."
+          npx tauri build --target x86_64-pc-windows-msvc --bundles msi --verbose
 
       - name: Prepare Windows artifacts
         working-directory: ./BRAIQ
@@ -187,11 +206,13 @@ jobs:
           mkdir -p artifacts
 
           # Copy MSI installer
-          if (Test-Path "src-tauri\target\x86_64-pc-windows-gnu\release\bundle\msi\BRAIQ_1.0.0_x64.msi") {
-            Copy-Item "src-tauri\target\x86_64-pc-windows-gnu\release\bundle\msi\BRAIQ_1.0.0_x64.msi" "artifacts\BRAIQ-windows-x64.msi"
+          if (Test-Path "src-tauri\target\x86_64-pc-windows-msvc\release\bundle\msi\BRAIQ_1.0.0_x64.msi") {
+            Copy-Item "src-tauri\target\x86_64-pc-windows-msvc\release\bundle\msi\BRAIQ_1.0.0_x64.msi" "artifacts\BRAIQ-windows-x64.msi"
             Write-Host "✅ MSI installer copied to artifacts"
           } else {
-            Write-Error "❌ Error: MSI installer not found"
+            Write-Error "❌ Error: MSI installer not found at src-tauri\target\x86_64-pc-windows-msvc\release\bundle\msi\BRAIQ_1.0.0_x64.msi"
+            Write-Host "Available files in target directory:"
+            Get-ChildItem -Path "src-tauri\target\x86_64-pc-windows-msvc\release\bundle" -Recurse -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.FullName }
             exit 1
           }
 
