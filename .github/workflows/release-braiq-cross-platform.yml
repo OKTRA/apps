@@ -28,21 +28,16 @@ jobs:
             arch: x64
 
     steps:
-      # ⚠️ IMPORTANT : Checkout le repo PRIVÉ BRAIQ
-      - name: Checkout BRAIQ private repository
+      # Checkout du repository actuel (oktra/apps)
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          repository: ${{ secrets.BRAIQ_REPO_OWNER }}/${{ secrets.BRAIQ_REPO_NAME }}
-          ref: ${{ github.event.inputs.braiq_ref || 'main' }}
-          token: ${{ secrets.BRAIQ_REPO_TOKEN }}
-          path: BRAIQ  # Checkout dans un sous-dossier
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: BRAIQ/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -50,16 +45,16 @@ jobs:
           targets: ${{ matrix.target }}
 
       - name: Install dependencies
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: npm ci
 
       - name: Build frontend
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: npm run build
 
       # Build macOS app
       - name: Build Tauri app (macOS)
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: |
           # Build seulement l'app (pas le DMG pour éviter les erreurs)
           if [ "${{ matrix.target }}" = "aarch64-apple-darwin" ]; then
@@ -74,7 +69,7 @@ jobs:
 
       # Créer le DMG automatiquement après le build
       - name: Create DMG automatically
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: |
           APP_PATH="src-tauri/target/${{ matrix.target }}/release/bundle/macos/BRAIQ.app"
           DMG_DIR="src-tauri/target/${{ matrix.target }}/release/bundle/dmg"
@@ -110,7 +105,7 @@ jobs:
           fi
 
       - name: Prepare macOS artifacts
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: |
           mkdir -p artifacts
 
@@ -138,28 +133,23 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: BRAIQ-macos-${{ matrix.arch }}
-          path: BRAIQ/artifacts/*
+          path: apps/braiq-win/artifacts/*
           if-no-files-found: error
 
   build-windows:
     runs-on: windows-latest
 
     steps:
-      # ⚠️ IMPORTANT : Checkout le repo PRIVÉ BRAIQ
-      - name: Checkout BRAIQ private repository
+      # Checkout du repository actuel (oktra/apps)
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          repository: ${{ secrets.BRAIQ_REPO_OWNER }}/${{ secrets.BRAIQ_REPO_NAME }}
-          ref: ${{ github.event.inputs.braiq_ref || 'main' }}
-          token: ${{ secrets.BRAIQ_REPO_TOKEN }}
-          path: BRAIQ  # Checkout dans un sous-dossier
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: BRAIQ/package-lock.json
+          cache-dependency-path: apps/braiq-win/package-lock.json
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -171,24 +161,24 @@ jobs:
         uses: microsoft/setup-msbuild@v1
 
       - name: Install dependencies
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: npm ci
 
       # Ensure Tauri CLI is available and working
       - name: Verify Tauri CLI installation
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: |
           echo "Checking Tauri CLI installation..."
           npx @tauri-apps/cli@latest --version
           echo "Tauri CLI verified successfully"
 
       - name: Build frontend
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: npm run build
 
       # Build Windows MSI
       - name: Build Tauri app (Windows)
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: |
           # Debug information
           echo "Current directory: $(pwd)"
@@ -208,7 +198,7 @@ jobs:
           npx tauri build --target x86_64-pc-windows-msvc --bundles msi --verbose
 
       - name: Prepare Windows artifacts
-        working-directory: ./BRAIQ
+        working-directory: ./apps/braiq-win
         run: |
           mkdir -p artifacts
 
@@ -227,7 +217,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: BRAIQ-windows-x64
-          path: BRAIQ/artifacts/*
+          path: apps/braiq-win/artifacts/*
           if-no-files-found: error
 
   create-release:
@@ -236,11 +226,9 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
 
     steps:
-      # Checkout oktra/apps pour créer la release ici
-      - name: Checkout oktra/apps repository
+      # Checkout du repository actuel
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          path: oktra-apps
 
       - name: Download all artifacts
         uses: actions/download-artifact@v4
@@ -250,10 +238,9 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -R artifacts
 
-      - name: Create Release in oktra/apps
+      - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          repository: oktra/apps  # ⚠️ Créer la release dans oktra/apps
           draft: true
           files: |
             artifacts/**/*.dmg
@@ -296,7 +283,7 @@ jobs:
 
             ---
 
-            🔗 Release créée automatiquement depuis le repo privé BRAIQ
+            🔗 Release créée automatiquement depuis oktra/apps
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
