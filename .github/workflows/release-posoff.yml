@@ -1,0 +1,176 @@
+name: Release Posoff
+
+on:
+  push:
+    tags:
+      - 'posoff-v*'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branche ou tag du repo privé Posoff à compiler (ex: main, posoff-v0.1.0)'
+        required: true
+        default: 'main'
+      tag:
+        description: 'Tag public de la release (ex: posoff-v0.1.0)'
+        required: true
+
+jobs:
+  build-windows:
+    name: Windows (installateur .exe)
+    runs-on: windows-latest
+    steps:
+      - name: Récupérer le code du repo privé
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.POSOFF_REPO_OWNER }}/${{ secrets.POSOFF_REPO_NAME }}
+          token: ${{ secrets.POSOFF_REPO_TOKEN }}
+          path: posoff
+          ref: ${{ github.event.inputs.ref || github.ref_name }}
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: posoff/package-lock.json
+
+      - name: Installer Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: posoff/src-tauri
+
+      - name: Installer les dépendances
+        working-directory: ./posoff
+        run: npm ci
+
+      - name: Compiler l'application (NSIS)
+        working-directory: ./posoff
+        run: npx tauri build --bundles nsis
+
+      - name: Préparer l'installateur .exe
+        working-directory: ./posoff
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path artifacts | Out-Null
+          $exe = Get-ChildItem "src-tauri\target\release\bundle\nsis\*.exe" | Select-Object -First 1
+          if (-not $exe) { Write-Error "Installateur NSIS introuvable"; exit 1 }
+          Copy-Item $exe.FullName "artifacts\Posoff-windows-x64-setup.exe"
+
+      - name: Publier l'artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Posoff-windows-x64
+          path: posoff/artifacts/*.exe
+
+  build-macos:
+    name: macOS (.dmg, ${{ matrix.arch }})
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        include:
+          - target: aarch64-apple-darwin
+            arch: arm64
+          - target: x86_64-apple-darwin
+            arch: x64
+    steps:
+      - name: Récupérer le code du repo privé
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.POSOFF_REPO_OWNER }}/${{ secrets.POSOFF_REPO_NAME }}
+          token: ${{ secrets.POSOFF_REPO_TOKEN }}
+          path: posoff
+          ref: ${{ github.event.inputs.ref || github.ref_name }}
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: posoff/package-lock.json
+
+      - name: Installer Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: posoff/src-tauri
+
+      - name: Installer les dépendances
+        working-directory: ./posoff
+        run: npm ci
+
+      # Signature ad-hoc : le certificat Developer ID (UL4ZYG2534) n'est pas
+      # dans la keychain du runner. La notarisation viendra plus tard.
+      - name: Compiler l'application (.app)
+        working-directory: ./posoff
+        env:
+          APPLE_SIGNING_IDENTITY: '-'
+        run: npx tauri build --target ${{ matrix.target }} --bundles app
+
+      - name: Créer le .dmg
+        working-directory: ./posoff
+        run: |
+          VERSION=$(jq -r '.version' src-tauri/tauri.conf.json)
+          APP_PATH="src-tauri/target/${{ matrix.target }}/release/bundle/macos/Posoff.app"
+          DMG_PATH="src-tauri/target/${{ matrix.target }}/release/bundle/dmg/Posoff_${VERSION}_${{ matrix.arch }}.dmg"
+          mkdir -p "$(dirname "$DMG_PATH")"
+          hdiutil create -fs HFS+ -srcfolder "$APP_PATH" -volname "Posoff" "$DMG_PATH"
+          mkdir -p artifacts
+          cp "$DMG_PATH" artifacts/
+
+      - name: Publier l'artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Posoff-macos-${{ matrix.arch }}
+          path: posoff/artifacts/*.dmg
+
+  create-release:
+    name: Créer la release publique
+    needs: [build-windows, build-macos]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer tous les artefacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Créer la release (brouillon)
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          files: |
+            artifacts/Posoff-windows-x64/*.exe
+            artifacts/Posoff-macos-arm64/*.dmg
+            artifacts/Posoff-macos-x64/*.dmg
+          body: |
+            ## Posoff ${{ github.event.inputs.tag || github.ref_name }}
+
+            Caisse de boutique, hors ligne d'abord.
+
+            ### Téléchargements
+            - **Windows** : `Posoff-windows-x64-setup.exe` (installateur NSIS, français)
+            - **macOS Apple Silicon** : `Posoff_*_arm64.dmg`
+            - **macOS Intel** : `Posoff_*_x64.dmg`
+
+            ### Installation
+
+            #### Windows
+            Double-cliquez sur le `.exe`. Si SmartScreen s'affiche : *Informations complémentaires → Exécuter quand même* (binaire non signé).
+
+            #### macOS
+            Si « Posoff est endommagé » ou « développeur non identifié » apparaît :
+            ```bash
+            xattr -d com.apple.quarantine /Applications/Posoff.app
+            ```
+
+            ---
+            Release créée automatiquement depuis le repo privé Posoff.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
