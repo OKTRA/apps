@@ -1,0 +1,16 @@
+{
+  "version": "0.1.0",
+  "date": "2026-08-26T00:00:00.000Z",
+  "notes": "Première version de Posoff",
+  "platforms": {
+    "windows-x86_64": {
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.0/Posoff-windows-x64-setup.exe"
+    },
+    "darwin-aarch64": {
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.0/Posoff_0.1.0_arm64.dmg"
+    },
+    "darwin-x86_64": {
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.0/Posoff_0.1.0_x64.dmg"
+    }
+  }
+}
