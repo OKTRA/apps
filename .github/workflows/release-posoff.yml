@@ -1,5 +1,8 @@
 name: Release Posoff
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
@@ -13,6 +16,9 @@ on:
       tag:
         description: 'Tag public de la release (ex: posoff-v0.1.0)'
         required: true
+      notes:
+        description: 'Notes de version (affichées dans latest.json)'
+        required: false
 
 jobs:
   build-windows:
@@ -135,6 +141,9 @@ jobs:
     needs: [build-windows, build-macos]
     runs-on: ubuntu-latest
     steps:
+      - name: Récupérer le dépôt (OKTRA/apps)
+        uses: actions/checkout@v4
+
       - name: Récupérer tous les artefacts
         uses: actions/download-artifact@v4
         with:
@@ -174,3 +183,28 @@ jobs:
             Release créée automatiquement depuis le repo privé Posoff.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Mettre à jour posoff/latest.json
+        env:
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+          REPO: ${{ github.repository }}
+          NOTES: ${{ github.event.inputs.notes }}
+        run: |
+          VERSION="${TAG#posoff-v}"
+          DATE=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
+          if [ -z "$NOTES" ]; then NOTES="Release automatique depuis le repo privé Posoff"; fi
+          jq -n \
+            --arg version "$VERSION" \
+            --arg date "$DATE" \
+            --arg notes "$NOTES" \
+            '{version: $version, date: $date, notes: $notes, platforms: {
+              "windows-x86_64": {url: ("https://github.com/" + $ENV.REPO + "/releases/download/" + $ENV.TAG + "/Posoff-windows-x64-setup.exe")},
+              "darwin-aarch64": {url: ("https://github.com/" + $ENV.REPO + "/releases/download/" + $ENV.TAG + "/Posoff_" + $version + "_arm64.dmg")},
+              "darwin-x86_64": {url: ("https://github.com/" + $ENV.REPO + "/releases/download/" + $ENV.TAG + "/Posoff_" + $version + "_x64.dmg")}
+            }}' > posoff/latest.json
+          cat posoff/latest.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add posoff/latest.json
+          git commit -m "Mise à jour de posoff/latest.json (${TAG})" || echo "Rien à committer"
+          git push
