@@ -1,16 +1,16 @@
 {
-  "version": "0.1.0",
-  "date": "2026-08-26T00:00:00.000Z",
-  "notes": "Première version de Posoff",
+  "version": "0.1.1",
+  "date": "2026-08-27T19:42:17.000Z",
+  "notes": "Posoff 0.1.1 — caisse hors ligne d'abord. Corrections de sauvegarde, PIN hors ligne, WebView2 intégré pour Windows.",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.0/Posoff-windows-x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/Posoff-windows-x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.0/Posoff_0.1.0_arm64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/Posoff_0.1.1_arm64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.0/Posoff_0.1.0_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/Posoff_0.1.1_x64.dmg"
     }
   }
 }
