@@ -1,16 +1,16 @@
 {
-  "version": "0.1.1",
-  "date": "2026-08-27T19:42:17.000Z",
-  "notes": "POS Plus 0.1.1 — caisse hors ligne d'abord. Corrections de sauvegarde, PIN hors ligne, WebView2 intégré pour Windows.",
+  "version": "0.2.0",
+  "date": "2026-08-28T17:20:00.000Z",
+  "notes": "POS Plus 0.2.0 — refonte visuelle (icônes, verre dépoli), auto-réparation de la sauvegarde en ligne, langage POS Plus côté clients.",
   "platforms": {
     "windows-x86_64": {
       "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/Posoff-windows-x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/POS-Plus_0.1.1_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/POS-Plus_0.1.1_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_x64.dmg"
     }
   }
 }
