@@ -7,7 +7,7 @@
       "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/Posoff-windows-x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/Posoff_0.1.1_arm64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/Posoff_0.1.1_aarch64.dmg"
     },
     "darwin-x86_64": {
       "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/Posoff_0.1.1_x64.dmg"
