@@ -4,7 +4,7 @@
   "notes": "POS Plus 0.2.0 — refonte visuelle (icônes, verre dépoli), auto-réparation de la sauvegarde en ligne, langage POS Plus côté clients.",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.1.1/Posoff-windows-x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_x64-setup.exe"
     },
     "darwin-aarch64": {
       "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_aarch64.dmg"
