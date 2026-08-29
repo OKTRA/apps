@@ -1,16 +1,16 @@
 {
-  "version": "0.2.0",
-  "date": "2026-08-28T17:20:00.000Z",
-  "notes": "POS Plus 0.2.0 — refonte visuelle (icônes, verre dépoli), auto-réparation de la sauvegarde en ligne, langage POS Plus côté clients.",
+  "version": "0.3.0",
+  "date": "2026-08-29T22:40:00.000Z",
+  "notes": "POS Plus 0.3.0 — transferts de marchandise entre boutiques, désactivation d'une caisse depuis le tableau de bord, session de caisse obligatoire pour vendre, création de fournisseur pendant une réception.",
   "platforms": {
     "windows-x86_64": {
       "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.3.0/POS-Plus_0.3.0_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.3.0/POS-Plus_0.3.0_x64.dmg"
     }
   }
 }
