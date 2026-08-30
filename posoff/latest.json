@@ -1,16 +1,16 @@
 {
-  "version": "0.4.0",
-  "date": "2026-08-30T01:48:38.000Z",
-  "notes": "POS Plus 0.4.0 — tableau de bord installable et consultable hors ligne (PWA), recherche Open Food Facts au scan d'un code-barres inconnu (réglable par boutique), import groupé de produits, clients et fournisseurs par collage, ticket lisible sur imprimante de bureau, réglages du propriétaire appliqués par les caisses.",
+  "version": "0.4.1",
+  "date": "2026-08-30T12:55:00.000Z",
+  "notes": "POS Plus 0.4.1 — correctifs web : session du propriétaire détectée depuis le site vitrine (accès direct au tableau de bord), PWA réservée au tableau de bord, hors ligne fiabilisé.",
   "platforms": {
     "windows-x86_64": {
       "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.0/POS-Plus_0.4.0_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.1/POS-Plus_0.4.1_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.0/POS-Plus_0.4.0_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.1/POS-Plus_0.4.1_x64.dmg"
     }
   }
 }
