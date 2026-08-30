@@ -1,16 +1,16 @@
 {
-  "version": "0.4.2",
-  "date": "2026-08-30T14:10:00.000Z",
-  "notes": "POS Plus 0.4.2 — raccordement d'une caisse fiabilisé (code de raccordement parfois refusé selon sa longueur), boutiques créées par un propriétaire en formule « Local » par défaut.",
+  "version": "0.4.3",
+  "date": "2026-08-30T15:20:00.000Z",
+  "notes": "POS Plus 0.4.3 — raccordement d'une caisse : identifiant de la boutique embarqué dans le code (plus de saisie manuelle, activation fiabilisée), code base64url corrigé, boutiques des propriétaires en formule « Local » par défaut.",
   "platforms": {
     "windows-x86_64": {
       "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.2/POS-Plus_0.4.2_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.3/POS-Plus_0.4.3_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.2/POS-Plus_0.4.2_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.3/POS-Plus_0.4.3_x64.dmg"
     }
   }
 }
