@@ -1,16 +1,16 @@
 {
-  "version": "0.4.4",
-  "date": "2026-08-30T23:55:00.000Z",
+  "version": "0.4.5",
+  "date": "2026-08-31T03:50:00.000Z",
   "notes": "POS Plus 0.4.4 — le raccordement d'une caisse aboutit : le code de la boutique (« BTQ-… ») vaut l'identifiant technique, l'activation de licence n'échoue plus en silence. Sauvegarde en ligne : rattrapage du schéma distant qui ne s'interrompt plus, écran qui se relit tout seul et annonce la cadence réelle du flux. Comptes : le dernier administrateur ne peut plus être fermé, et la caisse rouvre le plus ancien au démarrage s'il n'en reste aucun. Limites de formule revues du tableau de bord à la caisse. L'indicateur réseau affiche la connexion, non le paiement mobile.",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.2.0/POS-Plus_0.2.0_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.5/POS-Plus_0.4.5_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.4/POS-Plus_0.4.4_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.5/POS-Plus_0.4.5_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.4/POS-Plus_0.4.4_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.5/POS-Plus_0.4.5_x64.dmg"
     }
   }
 }
