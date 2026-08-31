@@ -1,16 +1,16 @@
 {
-  "version": "0.4.5",
-  "date": "2026-08-31T03:50:00.000Z",
-  "notes": "POS Plus 0.4.5 — l_installateur Windows est de retour (aucun .exe publié depuis 0.2.0), construit en compétition croisée et publié automatiquement à chaque tag posoff-v*. Le paquet iOS passe la validation d_Apple (libapp.a hors du bundle, cible 15.0) et l_écran d_installation porte la marque POS Plus. macOS : .dmg Apple Silicon et Intel, notarisés par Apple (agrafage de la machine de construction inopérant, comme pour 0.4.4 — Gatekeeper vérifie en ligne au premier lancement).",
+  "version": "0.4.6",
+  "date": "2026-08-31T18:18:07.000Z",
+  "notes": "POS Plus 0.4.6 — macOS : .dmg Apple Silicon et Intel signes et notarises par Apple (agrafage local inoperant, comme 0.4.5, Gatekeeper verifie en ligne). Windows : installateur NSIS. Caisse : scanner caméra, assistance bancaire et commandes republiees plus vite.",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.5/POS-Plus_0.4.5_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.6/POS-Plus_0.4.6_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.5/POS-Plus_0.4.5_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.6/POS-Plus_0.4.6_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.5/POS-Plus_0.4.5_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.6/POS-Plus_0.4.6_x64.dmg"
     }
   }
 }
