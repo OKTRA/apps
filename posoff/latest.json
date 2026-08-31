@@ -1,7 +1,7 @@
 {
   "version": "0.4.5",
   "date": "2026-08-31T03:50:00.000Z",
-  "notes": "POS Plus 0.4.4 — le raccordement d'une caisse aboutit : le code de la boutique (« BTQ-… ») vaut l'identifiant technique, l'activation de licence n'échoue plus en silence. Sauvegarde en ligne : rattrapage du schéma distant qui ne s'interrompt plus, écran qui se relit tout seul et annonce la cadence réelle du flux. Comptes : le dernier administrateur ne peut plus être fermé, et la caisse rouvre le plus ancien au démarrage s'il n'en reste aucun. Limites de formule revues du tableau de bord à la caisse. L'indicateur réseau affiche la connexion, non le paiement mobile.",
+  "notes": "POS Plus 0.4.5 — l_installateur Windows est de retour (aucun .exe publié depuis 0.2.0), construit en compétition croisée et publié automatiquement à chaque tag posoff-v*. Le paquet iOS passe la validation d_Apple (libapp.a hors du bundle, cible 15.0) et l_écran d_installation porte la marque POS Plus. macOS : .dmg Apple Silicon et Intel, notarisés par Apple (agrafage de la machine de construction inopérant, comme pour 0.4.4 — Gatekeeper vérifie en ligne au premier lancement).",
   "platforms": {
     "windows-x86_64": {
       "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.5/POS-Plus_0.4.5_x64-setup.exe"
