@@ -1,16 +1,16 @@
 {
-  "version": "0.4.6",
-  "date": "2026-08-31T18:18:07.000Z",
-  "notes": "POS Plus 0.4.6 — macOS : .dmg Apple Silicon et Intel signes et notarises par Apple (agrafage local inoperant, comme 0.4.5, Gatekeeper verifie en ligne). Windows : installateur NSIS. Caisse : scanner caméra, assistance bancaire et commandes republiees plus vite.",
+  "version": "0.4.8",
+  "date": "2026-09-01T16:30:30.000Z",
+  "notes": "POS Plus 0.4.8 — Démo : nouveau secteur « Pressing et blanchisserie » (cinquante lignes de grille tarifaire, comptes ouverts hôtel et restaurant), à côté de l'épicerie, des vêtements et de la quincaillerie. Caisse : le caissier écrit une note libre à l'encaissement, imprimée sur le ticket du client — jour du retrait, détail d'un dépôt, numéro de téléphone. macOS : la caisse ne se ferme plus au premier appel Bluetooth (une imprimante réglée sur Bluetooth arrêtait l'application à chaque encaissement). .dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.6/POS-Plus_0.4.6_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.8/POS-Plus_0.4.8_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.6/POS-Plus_0.4.6_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.8/POS-Plus_0.4.8_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.6/POS-Plus_0.4.6_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.8/POS-Plus_0.4.8_x64.dmg"
     }
   }
 }
