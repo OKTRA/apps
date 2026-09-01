@@ -1,16 +1,16 @@
 {
-  "version": "0.4.8",
-  "date": "2026-09-01T16:30:30.000Z",
-  "notes": "POS Plus 0.4.8 — Démo : nouveau secteur « Pressing et blanchisserie » (cinquante lignes de grille tarifaire, comptes ouverts hôtel et restaurant), à côté de l'épicerie, des vêtements et de la quincaillerie. Caisse : le caissier écrit une note libre à l'encaissement, imprimée sur le ticket du client — jour du retrait, détail d'un dépôt, numéro de téléphone. macOS : la caisse ne se ferme plus au premier appel Bluetooth (une imprimante réglée sur Bluetooth arrêtait l'application à chaque encaissement). .dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.4.9",
+  "date": "2026-09-01T17:39:32.000Z",
+  "notes": "POS Plus 0.4.9 — Produits : une prestation se vend sans stock. La case « Prestation ou produit sans stock » du formulaire crée un produit qui n'a ni quantité, ni seuil, ni rupture, ni inventaire, et qui ne pèse pas dans la valeur du stock — un lavage, une coupe, une heure de main-d'oeuvre, à côté des articles comptés du même catalogue. En-tête : la caisse affiche « En ligne » quand elle l'est vraiment ; une boutique raccordée annonçait « Local » et n'avait jamais son indicateur de sauvegarde. Démo : le secteur Pressing profite du nouveau modèle, ses prestations n'ont plus de stock de façade. Mise à jour de schéma automatique à l'ouverture, sans rien à faire : les produits existants restent comptés. .dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.8/POS-Plus_0.4.8_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.9/POS-Plus_0.4.9_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.8/POS-Plus_0.4.8_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.9/POS-Plus_0.4.9_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.8/POS-Plus_0.4.8_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.9/POS-Plus_0.4.9_x64.dmg"
     }
   }
 }
