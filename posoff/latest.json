@@ -1,16 +1,16 @@
 {
-  "version": "0.4.12",
-  "date": "2026-09-08T19:35:00.000Z",
-  "notes": "POS Plus 0.4.12 — File d'annonces : le panneau de nouveautés poussé par Posoff (vidéos, présentations texte+image, vidéos en ligne) se joue à l'ouverture de la caisse et se revoit depuis Paramètres ; une annonce ne s'affiche qu'une fois, une nouvelle nouveauté revient d'elle-même. Ciblage par formule (Local, Sync, Multi), boutique ou événement daté ; annonce d'introduction par défaut, modifiable depuis la console d'administration. Correctif : une pause volontaire de sauvegarde (mode démo, formule sans sauvegarde, suspension) ne s'affiche plus comme une erreur. .dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.4.14",
+  "date": "2026-09-10T01:56:48.000Z",
+  "notes": "POS Plus 0.4.14 — La facturation et l'édition A4 (factures, proformas, avoirs, bons de commande, factures d'achat) suivent désormais la formule : réservées à Sync et Multi, expliquées en formule Local, avec le bon de commande qui reste imprimable en ticket, la vente, la consultation et le règlement d'une facture existante toujours ouverts. Cette version inclut aussi la 0.4.13, jamais publiée : importation avancée Excel/CSV avec mapping automatique et modèle téléchargeable, import en masse du catalogue partagé depuis le dashboard, rapports, alertes et créances au dashboard, limites par formule et filigrane posplus.pro sur les tickets, pied de page et conditions de règlement des documents. .dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.12/POS-Plus_0.4.12_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.14/POS-Plus_0.4.14_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.12/POS-Plus_0.4.12_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.14/POS-Plus_0.4.14_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.12/POS-Plus_0.4.12_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.14/POS-Plus_0.4.14_x64.dmg"
     }
   }
 }
