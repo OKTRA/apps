@@ -1,16 +1,16 @@
 {
-  "version": "0.4.15",
-  "date": "2026-09-10T11:07:39.000Z",
-  "notes": "POS Plus 0.4.15 — Les catégories s'importent et se créent en boutique : bouton « Catégories » dans l'app (création avec sous-catégorie, import d'une liste en fichier ou collage), « Importer catégories… » dans le tableau de bord, et création automatique des catégories inconnues à l'import de produits. Côté propriétaire, deux blocages pilotés depuis les réglages de la boutique : suspendre l'encaissement ou l'ajout de produits locaux sur toutes les caisses, avec des permissions dédiées pour les comptes autorisés à passer outre. .dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.5.0",
+  "date": "2026-09-10T13:03:49.000Z",
+  "notes": "POS Plus 0.5.0 — POScan : le téléphone devient le lecteur de codes-barres du poste fixe sur le Wi-Fi local (QR d'appairage, jeton au coffre, chaque scan acquitté par l'écran de vente — « ajouté », « inconnu », « occupé », « verrouillé »), utilisable avant toute configuration de la boutique mobile, avec repli sur les bases de produits ouvertes quand le téléphone a du réseau. Nouveau thème clair / sombre / auto, appliqué avant le premier rendu. Les textes de l'écran d'accueil (titre, slogan, points forts) se pilotent désormais depuis la console d'administration et restent affichés hors ligne. Les moyens de paiement nommés (Wave, Orange Money…) ne sont plus confondus avec les espèces du tiroir dans les rapports, la clôture et les exports, et le filigrane « Généré par posplus.pro » est réservé aux tickets thermiques. .dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.15/POS-Plus_0.4.15_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.0/POS-Plus_0.5.0_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.15/POS-Plus_0.4.15_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.0/POS-Plus_0.5.0_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.4.15/POS-Plus_0.4.15_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.0/POS-Plus_0.5.0_x64.dmg"
     }
   }
 }
