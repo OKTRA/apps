@@ -1,16 +1,16 @@
 {
-  "version": "0.5.1",
-  "date": "2026-09-10T17:44:26.000Z",
-  "notes": "POS Plus 0.5.1 — POScan s'ouvre à tous les caissiers : une icône publique dans la barre du poste affiche le QR d'appairage (plus besoin d'un compte de gestion), et l'app mobile ne garde que le scan — on vise le QR, c'est tout. Côté caisse mobile : la grille produits s'affiche enfin correctement (bug WebKit), le bouton Encaisser n'est plus caché par la barre d'onglets, le bandeau démo respecte l'encoche, et les 33 tableaux défilent dans leur cadre sans faire bouger la page. La facturation disparaît du menu pour les formules Local et Base. .dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.5.6",
+  "date": "2026-09-13T12:34:36.000Z",
+  "notes": "POS Plus 0.5.6 — la verticale épicerie : vente au poids (0,5 kg) avec prix au kilo, unité divisible dans tout le stock, les marges et les documents ; PLU de balance à étiquettes décodé au scan ; dates limites de vente (alerte « périmé », démarque au motif « péremption ») ; conditionnement d'achat (sac de 25 kg ramené à la vente au kg). Plus : tarifs de gros et promotions par article, relances WhatsApp des factures échues, primes récurrentes de paie, inventaire assisté par POScan, déclarations TVA/ITS/INPS réglées en comptabilité, étiquettes code-barres internes, centre d'aide et visite guidée hors ligne.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.1/POS-Plus_0.5.1_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.6/POS-Plus_0.5.6_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.1/POS-Plus_0.5.1_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.6/POS-Plus_0.5.6_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.1/POS-Plus_0.5.1_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.6/POS-Plus_0.5.6_x64.dmg"
     }
   }
 }
