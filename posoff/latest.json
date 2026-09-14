@@ -1,16 +1,13 @@
 {
-  "version": "0.5.8",
-  "date": "2026-09-13T16:41:32.000Z",
-  "notes": "POS Plus 0.5.8 — la barre du haut s'allège sur mobile : les pastilles réseau et sauvegarde laissent la place au logo et à l'aide (elles restent lisibles dans Paramètres). Comprend 0.5.7 : le canal de secours range désormais son jeton d'écriture dans le coffre du système — une caisse raccordée depuis l'écran de connexion fait vraiment monter ses comptes et descendre les commandes de PIN, au lieu de s'annoncer raccordée sans moteur ; un raccordement actif sans moteur devient une erreur lisible.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.7.0",
+  "date": "2026-09-14T22:15:45.000Z",
+  "notes": "POS Plus 0.7.0 — le module Magasin installe la réserve du commerce : les réceptions peuvent entrer au magasin, le ravitaillement remonte le rayon en un geste numéroté (RVT-…), avec inventaire et pertes de la réserve, la fiche article montrant les deux compteurs. En stock partagé, la réserve vit sur l'autorité comme le stock. Avec ce module : le bip « commande prête » (réglable par poste, testable d'un bouton) et le buzzer de table (pager client, base série ou fichier, trame par modèle) — Paramètres → Matériel. L'écran cuisine gagne une horloge, le plan de salle une légende, le rapport restaurant une courbe fermée ; les tickets sortent en texte A4 sur une imprimante de bureau. \n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple. L'installateur Windows 0.7.0 arrive : le runner Windows de GitHub est indisponible (facturation en échec), le lien Windows du site sert l'installateur 0.6.1 en attendant.",
   "platforms": {
-    "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.8/POS-Plus_0.5.8_x64-setup.exe"
-    },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.8/POS-Plus_0.5.8_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.0/POS-Plus_0.7.0_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.5.8/POS-Plus_0.5.8_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.0/POS-Plus_0.7.0_x64.dmg"
     }
   }
 }
