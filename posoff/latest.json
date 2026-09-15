@@ -1,16 +1,16 @@
 {
-  "version": "0.7.0",
-  "date": "2026-09-14T22:34:00.000Z",
-  "notes": "POS Plus 0.7.0 — le module Magasin installe la réserve du commerce : les réceptions peuvent entrer au magasin, le ravitaillement remonte le rayon en un geste numéroté (RVT-…), avec inventaire et pertes de la réserve, la fiche article montrant les deux compteurs. En stock partagé, la réserve vit sur l'autorité comme le stock. Avec ce module : le bip « commande prête » (réglable par poste, testable d'un bouton) et le buzzer de table (pager client, base série ou fichier, trame par modèle) — Paramètres → Matériel. L'écran cuisine gagne une horloge, le plan de salle une légende, le rapport restaurant une courbe fermée ; les tickets sortent en texte A4 sur une imprimante de bureau. \n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.7.1",
+  "date": "2026-09-15T11:28:24.000Z",
+  "notes": "POS Plus 0.7.1 — ce que l'espace propriétaire ou la console décident descend à la caisse en quelques secondes, sans que personne n'appuie sur « Synchroniser » : licence émise ou suspendue, module attribué ou retiré, paiement mobile, compte créé, PIN réinitialisé, rôle, réglage, catalogue, caisse désactivée. Le control plane pose un signal dans la base du commerce, la caisse le sonde toutes les quinze secondes et enchaîne aussitôt son tour complet. La licence se rafraîchit en tête de chaque tour, quoi qu'il arrive au reste (démo active, envoi en erreur, jeton absent) : un module retiré se ferme même en démonstration. Paramètres → Abonnement dit quand la caisse a vérifié pour la dernière fois, et pourquoi un refus.\n\nEn démo, le Magasin fait partie de la vitrine comme la comptabilité ou la paie : la réserve est semée et l'onglet s'essaie, que le commerce ait le module ou non.\n\nJournal de démarrage : chaque étape du lancement est notée sur le disque (journal-demarrage.log, à côté de la base) avant de s'exécuter — un crash au démarrage sur Windows dit désormais quelle étape l'a tué.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.0/POS-Plus_0.7.0_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.1/POS-Plus_0.7.1_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.0/POS-Plus_0.7.0_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.1/POS-Plus_0.7.1_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.0/POS-Plus_0.7.0_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.1/POS-Plus_0.7.1_x64.dmg"
     }
   }
 }
