@@ -1,16 +1,16 @@
 {
-  "version": "0.7.1",
-  "date": "2026-09-15T11:28:24.000Z",
-  "notes": "POS Plus 0.7.1 — ce que l'espace propriétaire ou la console décident descend à la caisse en quelques secondes, sans que personne n'appuie sur « Synchroniser » : licence émise ou suspendue, module attribué ou retiré, paiement mobile, compte créé, PIN réinitialisé, rôle, réglage, catalogue, caisse désactivée. Le control plane pose un signal dans la base du commerce, la caisse le sonde toutes les quinze secondes et enchaîne aussitôt son tour complet. La licence se rafraîchit en tête de chaque tour, quoi qu'il arrive au reste (démo active, envoi en erreur, jeton absent) : un module retiré se ferme même en démonstration. Paramètres → Abonnement dit quand la caisse a vérifié pour la dernière fois, et pourquoi un refus.\n\nEn démo, le Magasin fait partie de la vitrine comme la comptabilité ou la paie : la réserve est semée et l'onglet s'essaie, que le commerce ait le module ou non.\n\nJournal de démarrage : chaque étape du lancement est notée sur le disque (journal-demarrage.log, à côté de la base) avant de s'exécuter — un crash au démarrage sur Windows dit désormais quelle étape l'a tué.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.7.3",
+  "date": "2026-09-16T17:30:25.000Z",
+  "notes": "POS Plus 0.7.3 — la comptabilité s'indexe sur les fiches : chaque article peut porter son compte de vente (70x) et son compte d'achat (60x), chaque rayon les siens, chaque client sa subdivision 411x, chaque fournisseur son 401x, chaque salarié son 42x. Le moteur d'écriture suit cette chaîne — la fiche, puis le rayon, puis le réglage global — scinde chaque pièce par compte (TVA et remise comprises, au franc près) et un nouvel onglet « Tiers & articles » les indexe tous au même endroit.\n\nLe panier tient désormais dans l'écran d'un téléphone : la feuille du bas est compacte, plus de bouton d'encaissement coupé, et rien ne recouvre la commande. Le Comptoir ne montre que la carte du restaurant — jamais la boutique — et un reste à payer part en crédit exige un client identifié : le geste d'encaissement ouvre sa fiche.\n\nLe propriétaire décide une fois pour toutes les caisses : identité, ticket, encaissement, comptabilité et paie descendent de son espace au poste, qui les applique en quelques secondes. Le module Restaurant gagne l'interface Comptoir dans l'onglet Restaurant — la Caisse reste une caisse. La facturation émet l'attestation de service fait (ASF-) et marque les factures soldées. Comptabilité : plan SYSCOHADA révisé complet, comptes par tiers, contrôle de caisse, trésorerie banque et caisse. Pièces de caisse : bons d'entrée et de sortie numérotés, reçus, arrêté avec billetage, brouillard, sessions passées. Audit : les écritures client sont gardées ; transferts : la réception rattrape l'annulation, exports FEC/CSV ; migration et formation : import en démo, employés avec PIN, poussée en production sous module attribué.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.1/POS-Plus_0.7.1_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.3/POS-Plus_0.7.3_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.1/POS-Plus_0.7.1_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.3/POS-Plus_0.7.3_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.1/POS-Plus_0.7.1_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.3/POS-Plus_0.7.3_x64.dmg"
     }
   }
 }
