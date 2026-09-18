@@ -1,16 +1,16 @@
 {
-  "version": "0.7.5",
-  "date": "2026-09-18T11:32:33.000Z",
-  "notes": "POS Plus 0.7.5 — la comptabilité se lit d'un coup d'œil : l'onglet Trésorerie ouvre sur la synthèse de tous les comptes de la classe 5 — solde comptable, solde du relevé, écart, total caisse + banque + mobile — et sur l'import d'un relevé bancaire ou mobile money, à pointer, ignorer ou comptabiliser. L'onglet Capital montre ce que la boutique doit à l'exploitant : solde du compte 104, apports et prélèvements de la période, détail de chaque mouvement. Chaque tiers a son compte — 4011/4012 par fournisseur, 4111/4112 par client — et la balance inclut les soldes d'ouverture.\n\nLe restaurant se sert en deux services : le plan de salle, la carte remplie depuis le catalogue, les consignes cuisine posées en un tap, le comptoir, l'écran cuisine et le rapport restaurant.\n\nLes achats ont leur bon de commande : la demande d'approvisionnement propose les articles sous leur seuil, le bon numéroté s'imprime sans engager ni stock ni dette, et la réception le reprend — le fournisseur se désigne ou se crée à ce moment-là, le prix négocié et la quantité réellement livrée font foi.\n\nLe site s'offre une vidéo de démonstration et le manuel est mis à jour (restaurant, comptabilité, trésorerie, capital).\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.8.0",
+  "date": "2026-09-18T16:10:58.000Z",
+  "notes": "POS Plus 0.8.0 — mise à jour de sécurité et de fiabilité.\n\nLes licences sont désormais signées (Ed25519) : la caisse refuse tout snapshot non vérifié, et les clés tournent toutes seules, sans interruption. Les sessions du tableau de bord et les jetons d'activation sont signés de la même façon.\n\nLe code PIN des employés ne quitte plus jamais le poste : la sauvegarde en ligne ne contient aucun hachage à casser. Côté caisse, les permissions sont vérifiées sur chaque écran (historique, créances, clients, tiroir, import), et le verrou anti-force-brute couvre aussi le mode démonstration.\n\nCôté site : protection CSRF, limitation de débit des routes publiques, et le lien boutique/installation du parrainage n'est plus falsifiable.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.5/POS-Plus_0.7.5_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.8.0/POS-Plus_0.8.0_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.5/POS-Plus_0.7.5_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.8.0/POS-Plus_0.8.0_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.5/POS-Plus_0.7.5_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.8.0/POS-Plus_0.8.0_x64.dmg"
     }
   }
 }
