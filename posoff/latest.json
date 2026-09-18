@@ -1,16 +1,16 @@
 {
-  "version": "0.7.4",
-  "date": "2026-09-16T21:56:21.000Z",
+  "version": "0.7.5",
+  "date": "2026-09-18T11:30:46.000Z",
   "notes": "POS Plus 0.7.4 — nouveau carnet de justificatifs : toutes les pièces d'une période (factures, reçus, arrêtés, scans) se choisissent et se téléchargent d'un coup, rangées par type et par document, avec un index.csv pour le comptable.\n\nLa carte du restaurant se remplit depuis le catalogue sans dupliquer aucune fiche : un article vendu en caisse se classe à la carte depuis sa fiche, ou par lot avec « Importer de la caisse ». Les consignes cuisine rapides (« Sans piment », « Bien cuit »…) se posent en un tap sur chaque ligne, et la liste est partagée entre les caisses.\n\nMasquer la Caisse : un commerce qui ne vend que sur facture retire l'onglet de sa vue — sur place, ou depuis l'espace propriétaire pour toutes ses caisses. C'est un réglage d'affichage : la session du tiroir (fond, arrêté, écart) reste gérable depuis les Rapports, et rien n'est bloqué.\n\nL'admin peut offrir la « démo complète » à un propriétaire ou à une boutique, avec une date d'expiration : elle ouvre toute la vitrine — modules, restaurant, facturation — dans la base de démonstration, sans rien ouvrir dans la vraie boutique, et retombe sur les droits réels à l'échéance. L'approvisionnement se lit par sections, les scans POScan sont recadrés automatiquement (page détachée de son fond ou quatre coins) et leurs envois se retentent sans double compte.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.4/POS-Plus_0.7.4_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.5/POS-Plus_${v}_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.4/POS-Plus_0.7.4_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.5/POS-Plus_${v}_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.4/POS-Plus_0.7.4_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.7.5/POS-Plus_${v}_x64.dmg"
     }
   }
 }
