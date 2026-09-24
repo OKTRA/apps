@@ -1,16 +1,16 @@
 {
-  "version": "0.8.0",
-  "date": "2026-09-18T16:10:58.000Z",
-  "notes": "POS Plus 0.8.0 — mise à jour de sécurité et de fiabilité.\n\nLes licences sont désormais signées (Ed25519) : la caisse refuse tout snapshot non vérifié, et les clés tournent toutes seules, sans interruption. Les sessions du tableau de bord et les jetons d'activation sont signés de la même façon.\n\nLe code PIN des employés ne quitte plus jamais le poste : la sauvegarde en ligne ne contient aucun hachage à casser. Côté caisse, les permissions sont vérifiées sur chaque écran (historique, créances, clients, tiroir, import), et le verrou anti-force-brute couvre aussi le mode démonstration.\n\nCôté site : protection CSRF, limitation de débit des routes publiques, et le lien boutique/installation du parrainage n'est plus falsifiable.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.9.0",
+  "date": "2026-09-24T22:13:53.000Z",
+  "notes": "POS Plus 0.9.0 — points de retour automatiques.\n\nLa caisse prend désormais ses points de retour toute seule : un par jour, un à la fermeture de caisse, un avant chaque mise à jour. Rien à demander, rien à afficher : Paramètres → Sauvegarde et maintenance ne garde qu'un bouton « Restaurer un point de retour », qui repart sur le point le plus récent — local, ou hébergé si le poste n'en a pas.\n\nPour les formules « Sauvegarde en ligne » et « Multi-caisse », un point par jour et par commerce est aussi déposé hors site : le tableau de bord et la console support peuvent le télécharger, et une caisse le restaurer directement. Rétention : 30 jours de points quotidiens, un point par mois sur un an.\n\nAprès une restauration, le poste republie toute sa base vers l'espace en ligne, et les autres caisses s'alignent au cycle suivant.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.8.0/POS-Plus_0.8.0_x64-setup.exe"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.9.0/POS-Plus_0.9.0_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.8.0/POS-Plus_0.8.0_aarch64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.9.0/POS-Plus_0.9.0_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.8.0/POS-Plus_0.8.0_x64.dmg"
+      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.9.0/POS-Plus_0.9.0_x64.dmg"
     }
   }
 }
