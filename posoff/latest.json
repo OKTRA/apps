@@ -1,16 +1,16 @@
 {
-  "version": "0.9.2",
-  "date": "2026-09-27T20:50:42.000Z",
-  "notes": "POS Plus 0.9.2 — correction d'un crash au lancement sous Windows.\n\nSur un poste redémarré depuis moins d'une heure, l'application s'arrêtait au lancement sans aucun message : le thread de synchronisation soustrayait une heure à un compteur monotone qui, sous Windows, démarre à l'amorçage de la machine. La soustraction déborde, la panique ne peut être attrapée et le processus entier meurt. Le journal du démarrage (`journal-demarrage.log`, à côté de la base) nommait la dernière étape exécutée et la cause : « overflow when subtracting duration from instant ».\n\nLe calcul dit désormais « jamais eu lieu » plutôt qu'« il y a une heure » : rien ne dépend plus de l'ancienneté de la machine, et le comportement ne change pas — premier tour de synchronisation et premier tirage restent immédiats. macOS avait le même bug (un Mac redémarré depuis moins d'une heure plantait pareil) ; les .dmg suivront avec la prochaine version Apple.\n\nInstallateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.9.3",
+  "date": "2026-09-28T22:02:39.000Z",
+  "notes": "POS Plus 0.9.3 — Tiko arrive dans la caisse, et le Mac reçoit le correctif de démarrage.\n\nTiko, la mascotte de POS Plus, s'installe dans l'application. Il salue sur l'écran d'ouverture, de connexion et de première mise en route. Il se tient en médaillon dans la barre du haut. Il présente les listes encore vides, et se gratte la tête quand une recherche ne trouve rien. L'icône de l'application devient Tiko lui-même, dans le carré vert.\n\nSur Mac, c'est la première version depuis la 0.9.1 : elle emporte le correctif publié pour Windows en 0.9.2. Un Mac redémarré depuis moins d'une heure pouvait fermer l'application au lancement, sans aucun message ; ce n'est plus le cas.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://github.com/OKTRA/apps/releases/download/posoff-v0.9.2/POS-Plus_0.9.2_x64-setup.exe"
+      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.3_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.1_aarch64.dmg"
+      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.3_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.1_x64.dmg"
+      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.3_x64.dmg"
     }
   }
 }
