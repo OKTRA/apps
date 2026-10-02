@@ -1,16 +1,16 @@
 {
-  "version": "0.9.4",
-  "date": "2026-10-01T17:49:57.000Z",
-  "notes": "POS Plus 0.9.4 — douze démos par secteur, et la facturation qui puise dans le catalogue.\n\nLe mode démo passe de quatre à douze secteurs. S'ajoutent la pharmacie, le laboratoire d'analyses, le maquis-restaurant, le dépôt-grossiste, le bureau de services (qui facture sans caisse), le salon de coiffure et beauté, le garage et la librairie-papeterie. L'assistant d'installation les propose tous à la case « Découvrir avec des exemples », et une icône dans le bandeau « Mode démo » permet d'en sortir d'un geste.\n\nDans la facturation, la désignation d'une ligne se choisit parmi les produits du catalogue — le nom et le prix de vente sont repris — ou crée le produit qui manque. Elle reste libre pour une ligne ordinaire. Cela vaut pour la facture, la proforma, l'avoir, le bordereau, le bon de livraison et l'attestation.\n\nQuand la Caisse est masquée, l'onglet Ventes disparaît avec elle tant qu'il n'y a aucune vente à relire : plus d'écran vide pour un commerce qui ne fait que facturer.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.9.5",
+  "date": "2026-10-02T13:50:00.000Z",
+  "notes": "POS Plus 0.9.5 — le module Clinique, pour tous les genres de structures de santé.\n\nLe module complémentaire Clinique, attribué depuis la console OKTRA, sert le cabinet, la clinique et la polyclinique, le centre de santé, le dentaire, l'ophtalmologie, la maternité, la pédiatrie, la kinésithérapie, le laboratoire et l'imagerie, les soins infirmiers et la clinique vétérinaire. La visite est le ticket : ouverte à l'arrivée, elle accumule actes, médicaments et acomptes, et sa clôture crée la vente.\n\nDossier médical (constantes, consultations, ordonnances, examens), rendez-vous avec rappel WhatsApp, lits et séjours. Tiers payant : la part de l'assureur reste à crédit et se facture par bordereau ; rétrocession des praticiens. L'ordonnance, le bordereau et le rapport s'enregistrent en PDF.\n\nSecret médical : trois permissions (accueil, soignant, direction), chaque ouverture de dossier journalisée, et le dossier médical reste hors de la sauvegarde en ligne sauf choix du propriétaire.\n\nLe mode démo gagne un treizième secteur, la clinique.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.4_x64-setup.exe"
+      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.5_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.4_aarch64.dmg"
+      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.5_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.4_x64.dmg"
+      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.5_x64.dmg"
     }
   }
 }
