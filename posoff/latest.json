@@ -1,16 +1,16 @@
 {
-  "version": "0.9.6",
-  "date": "2026-10-05T17:00:01.000Z",
-  "notes": "POS Plus 0.9.6 — la billetterie connectée et le module Parc, des paniers en parallèle, des livreurs et une cloche de notifications.\n\nBilletterie connectée, module complémentaire attribué depuis la console OKTRA (formules en ligne) : les ventes de billets d'une application de billetterie, TicketGo, en ligne et au guichet, arrivent d'elles-mêmes dans POS Plus et comptent comme des ventes du commerce — rapports, historique, exports, tableau de bord — puis passent en comptabilité, écarts de vacation compris. L'écran Billetterie montre les ventes en direct, les entrées, le guichet et les reversements.\n\nGestion de parc, module qui s'appuie sur la billetterie : la recette du jour d'un lieu de visite — billets, caisses par pôle (buvette, boutique) et locations facturées — face à sa capacité d'accueil, par heure et par activité.\n\nÀ la caisse, un « + » ouvre un autre panier pendant qu'un client attend (huit au plus), au comptoir comme au restaurant. Un annuaire de livreurs (« Qui livre ? », filtre par livreur), des textes de tickets à régler dans Paramètres > Tickets (97 textes, 8 modèles), et des annulations, retours et reprogrammations avec un motif, résumés par motif dans les Rapports.\n\nUne cloche en haut de l'écran compte ce qui demande votre attention — produits périmés ou en rupture, clients et factures en retard, paiements mobiles à confirmer, caisse restée ouverte, sauvegarde en panne — et un résumé s'affiche à l'ouverture. Chaque sujet mène à l'écran concerné, déjà filtré, et se reporte à demain d'un geste. Un seul bouton d'état remplace les pastilles réseau, sauvegarde et mise à jour : la barre des onglets gagne de la place.\n\nLe mode démo gagne un quatorzième secteur, le parc de loisirs.\n\nLa mise à jour applique une migration locale (tables de la billetterie, livreurs, motifs) ; un point de retour est pris automatiquement avant.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
+  "version": "0.9.7",
+  "date": "2026-10-06T19:18:19.000Z",
+  "notes": "POS Plus 0.9.7 — la billetterie par événement et par période, les caisses renommables à distance, et un démarrage qui ne peut plus se bloquer.\n\nBilletterie : une liaison TicketGo porte désormais tous les lieux et événements du compte — des puces « Tous · lieu · événements » et un sélecteur de période (jour, 7 jours, mois, 30 jours, dates libres, flèches) filtrent toutes les sections, avec comparaison à la période précédente. Le parc reçoit un festival dans sa démo (préventes, entrées, reversement), l'argent d'un événement se lit dans la recette (« dont événements »), et l'écran Parc ne s'ouvre plus sur un zéro avant chargement.\n\nTableau de bord : le propriétaire renomme le code d'une caisse (C1 → C2) pour réparer deux caisses sous le même code — accepté même après des ventes, refusé si le code est déjà pris (par une autre caisse ou d'anciens tickets), avec le prochain code libre proposé. La caisse l'applique à son prochain passage, la session ouverte suit, et le geste est tracé au journal d'audit.\n\nFiabilité : une démo qui ne se rebâtit pas ne bloque plus la caisse — le fichier de démonstration est jeté et reconstruit, la caisse s'ouvre quand même. Et la sauvegarde en ligne rattrape les colonnes manquantes de sa base distante : un envoi ne reste plus bloqué sur une colonne oubliée par une mise à jour, le journal repart tout seul.\n\nLa mise à jour applique une migration locale ; un point de retour est pris automatiquement avant.\n\n.dmg Apple Silicon et Intel signés Developer ID et notarisés par Apple ; installateur NSIS Windows (binaire non signé, SmartScreen : Informations complémentaires > Exécuter quand même).",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.6_x64-setup.exe"
+      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.7_x64-setup.exe"
     },
     "darwin-aarch64": {
-      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.6_aarch64.dmg"
+      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.7_aarch64.dmg"
     },
     "darwin-x86_64": {
-      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.6_x64.dmg"
+      "url": "https://posplus.pro/installateurs/POS-Plus_0.9.7_x64.dmg"
     }
   }
 }
